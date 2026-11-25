@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Método Marketing Digital | Decida com dados, cobre mais</title>
+<meta name="description" content="Método prático para gestores de tráfego: IA aplicada ao ROI, relatórios automatizados, auditoria, precificação por performance e contratos. R$ 15,00.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js" defer></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { bg:'#07080D', neon:'#FF5A2B', violet:'#6D4CFF' },
+  fontFamily: { display:['Syne','sans-serif'], body:['"Plus Jakarta Sans"','sans-serif'] }
+} } }
+</script>
+<style>
+  html { scroll-behavior:smooth; scroll-padding-top:6rem; }
+  body { background:#07080D; color:#fff; font-family:'Plus Jakarta Sans',sans-serif; overflow-x:hidden; }
+  h1,h2,h3,.font-display { font-family:'Syne',sans-serif; letter-spacing:-0.03em; }
+  :focus-visible { outline:3px solid #FF5A2B; outline-offset:3px; border-radius:8px; }
+  .glow { position:absolute; border-radius:9999px; filter:blur(120px); pointer-events:none; }
+  .grain::after { content:""; position:fixed; inset:0; pointer-events:none; opacity:.035; z-index:60;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* navbar */
+  #nav { transition:max-width .5s ease, background-color .4s ease, top .4s ease; max-width:64rem; }
+  #nav.scrolled { max-width:46rem; background:rgba(10,11,16,.78); top:.5rem; }
+  #mobile { max-height:0; opacity:0; overflow:hidden; transition:max-height .45s ease, opacity .3s ease; }
+  #mobile.open { max-height:420px; opacity:1; }
+
+  /* botão */
+  .btn-main { position:relative; overflow:hidden; background:#FF5A2B; color:#0A0B10; font-weight:700; transition:transform .15s ease, box-shadow .3s ease; box-shadow:0 0 0 0 rgba(255,90,43,.5); }
+  .btn-main:hover { box-shadow:0 10px 40px -8px rgba(255,90,43,.7); }
+  .btn-main:active { transform:scale(.95) !important; }
+  .btn-main::after { content:""; position:absolute; top:0; left:-60%; width:40%; height:100%; transform:skewX(-20deg);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent); animation:shimmer 3.2s ease-in-out infinite; }
+  @keyframes shimmer { 0%,55% { left:-60%; } 100% { left:140%; } }
+
+  /* bento */
+  .card { position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.035);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:1.5rem; transition:border-color .3s ease; }
+  .card:hover { border-color:rgba(255,90,43,.45); }
+  .card::before { content:""; position:absolute; inset:0; opacity:0; transition:opacity .3s ease; pointer-events:none;
+    background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%), rgba(255,90,43,.16), transparent 60%); }
+  .card:hover::before { opacity:1; }
+  .card > * { position:relative; }
+
+  /* marquee */
+  .marquee { display:flex; width:max-content; animation:slide 38s linear infinite; }
+  .marquee:hover { animation-play-state:paused; }
+  @keyframes slide { to { transform:translateX(-50%); } }
+
+  /* faq */
+  .faq-panel { display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s ease; }
+  .faq-panel.open { grid-template-rows:1fr; }
+  .faq-panel > div { overflow:hidden; }
+
+  /* livro 3D */
+  .scene { perspective:1100px; width:240px; height:330px; }
+  .book { position:relative; width:240px; height:330px; transform-style:preserve-3d; animation:spin 16s linear infinite; }
+  @keyframes spin { from { transform:rotateX(-8deg) rotateY(0deg); } to { transform:rotateX(-8deg) rotateY(360deg); } }
+  .face { position:absolute; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .front { width:240px; height:330px; transform:translateZ(20px); background:#F8F4EE; border-radius:4px 10px 10px 4px; overflow:hidden; box-shadow:inset 6px 0 10px -6px rgba(0,0,0,.35); }
+  .cover-top { height:150px; }
+  .cover-bottom { padding:22px 20px; }
+  .back { width:240px; height:330px; transform:rotateY(180deg) translateZ(20px); background:#1E1B18; border-radius:10px 4px 4px 10px; color:#fff; display:grid; place-items:center; text-align:center; padding:24px; }
+  .spine { width:40px; height:330px; left:100px; transform:rotateY(-90deg) translateZ(120px); background:#FF5A2B; display:grid; place-items:center; }
+  .spine span { writing-mode:vertical-rl; transform:rotate(180deg); font-family:'Syne',sans-serif; font-weight:800; font-size:13px; color:#0A0B10; letter-spacing:-.01em; white-space:nowrap; }
+  .pages { width:40px; height:322px; top:4px; left:100px; transform:rotateY(90deg) translateZ(120px); background:repeating-linear-gradient(90deg,#f3eee6 0 2px,#d9d1c3 2px 3px); }
+  @media (prefers-reduced-motion: reduce) { .book { animation:none; transform:rotateX(-8deg) rotateY(-28deg); } }
+
+  @media (prefers-reduced-motion: reduce) { html{scroll-behavior:auto} .marquee,.btn-main::after{animation:none} }
+</style>
+</head>
+<body class="grain antialiased">
+
+<!-- NAVBAR PÍLULA -->
+<header class="fixed top-4 inset-x-0 z-50 px-4">
+  <div id="nav" class="mx-auto rounded-full border border-white/10 bg-white/5 backdrop-blur-lg">
+    <div class="flex items-center justify-between h-14 pl-6 pr-2">
+      <a href="#inicio" class="font-display font-extrabold text-[15px] sm:text-lg whitespace-nowrap flex items-center gap-2"><i data-lucide="zap" class="w-5 h-5 text-neon"></i>Método Marketing Digital</a>
+      <nav class="hidden md:flex gap-7 text-sm text-white/70" aria-label="Principal">
+        <a class="hover:text-white transition-colors" href="#inicio">Início</a>
+        <a class="hover:text-white transition-colors" href="#conteudo">Conteúdo</a>
+        <a class="hover:text-white transition-colors" href="#metodo">Método</a>
+        <a class="hover:text-white transition-colors" href="#faq">Dúvidas</a>
+      </nav>
+      <a href="#pagamento" class="btn-main hidden md:inline-block rounded-full px-5 py-2.5 text-sm">Quero o método</a>
+      <button id="burger" class="md:hidden w-11 h-11 grid place-items-center" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile"><i data-lucide="menu" class="w-6 h-6"></i></button>
+    </div>
+    <div id="mobile" class="md:hidden px-6">
+      <nav class="flex flex-col text-lg font-medium pb-4" aria-label="Mobile">
+        <a class="m-link py-3 border-t border-white/10" href="#conteudo">Conteúdo</a>
+        <a class="m-link py-3 border-t border-white/10" href="#metodo">Método</a>
+        <a class="m-link py-3 border-t border-white/10" href="#faq">Dúvidas</a>
+        <a href="#pagamento" class="m-link btn-main rounded-full text-center py-3 mt-2">Quero o método</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section id="inicio" class="relative pt-36 md:pt-44 pb-24 overflow-hidden">
+  <div class="glow w-[520px] h-[520px] bg-neon/30 -top-40 -left-40"></div>
+  <div class="glow w-[480px] h-[480px] bg-violet/30 top-20 right-[-160px]"></div>
+  <div class="relative max-w-6xl mx-auto px-5 grid lg:grid-cols-12 gap-14 items-center">
+    <div class="lg:col-span-7">
+      <p class="h-in inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/80"><span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>Novo: Módulos 16 a 20 · Método prático avançado</p>
+      <h1 class="h-in mt-6 font-extrabold text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl tracking-tight">Pare de vender horas de tráfego. Venda <span class="text-neon">decisões que dão lucro.</span></h1>
+      <p class="h-in mt-6 text-lg text-white/70 max-w-xl leading-relaxed">Prompts de IA, relatórios automáticos, auditoria e contratos protegidos em um só método para gestores que querem sair da operação e entrar na conversa estratégica com o cliente.</p>
+      <div class="h-in mt-9 flex flex-col sm:flex-row gap-3">
+        <a data-magnetic href="#pagamento" class="btn-main rounded-full px-8 py-4 text-center">Quero o método por R$ 15</a>
+        <a href="#conteudo" class="rounded-full border border-white/20 hover:bg-white/10 transition px-8 py-4 text-center font-bold">Ver o conteúdo</a>
+      </div>
+    </div>
+    <div class="lg:col-span-5 h-in">
+      <div class="relative mx-auto w-[300px] h-[400px] sm:w-[340px] sm:h-[440px] grid place-items-center">
+        <div class="glow w-72 h-72 bg-neon/30 top-10 left-1/2 -translate-x-1/2"></div>
+        <div class="scene" role="img" aria-label="Capa do e-book Método Marketing Digital, girando">
+          <div class="book">
+            <div class="face front">
+              <div class="cover-top">
+                <svg viewBox="0 0 240 150" class="w-full h-full" aria-hidden="true">
+                  <rect width="240" height="150" fill="#1E1B18"/>
+                  <g fill="#3B5B7C"><rect x="34" y="92" width="14" height="34"/><rect x="56" y="78" width="14" height="48"/><rect x="78" y="98" width="14" height="28"/><rect x="100" y="64" width="14" height="62" fill="#FF5A2B"/><rect x="122" y="84" width="14" height="42"/></g>
+                  <polyline points="150,110 172,84 192,96 214,50" fill="none" stroke="#FF5A2B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="214" cy="50" r="5" fill="#FF5A2B"/>
+                  <line x1="26" y1="126" x2="220" y2="126" stroke="#ffffff33"/>
+                </svg>
+              </div>
+              <div class="cover-bottom">
+                <span class="block w-4 h-1.5 rounded-full bg-neon"></span>
+                <p class="font-display font-extrabold text-[26px] leading-[1.02] mt-3 text-[#1E1B18]">Método Marketing Digital</p>
+                <p class="mt-2 text-[12px] font-bold text-[#5E574F]">Módulos 16 a 20 · Método prático avançado</p>
+              </div>
+            </div>
+            <div class="face back"><p class="font-display font-extrabold text-lg">Decida com dados.<br>Cobre pelo impacto.</p></div>
+            <div class="face spine"><span>Método Marketing Digital</span></div>
+            <div class="face pages"></div>
+          </div>
+        </div>
+        <div class="float absolute -left-2 top-8 card px-4 py-3 text-sm"><p class="text-white/60 text-xs">Teste controlado</p><p class="font-bold">R$ 10–20/dia · 72 h</p></div>
+        <div class="float absolute -right-2 bottom-12 card px-4 py-3 text-sm"><p class="text-white/60 text-xs">Plano de ação</p><p class="font-bold">30 · 60 · 90 dias</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="border-y border-white/10 py-5 overflow-hidden" aria-label="Temas do método">
+  <div class="marquee text-xl font-display font-bold text-white/50">
+    <div class="flex shrink-0 items-center gap-10 pr-10">
+      <span>IA aplicada ao ROI</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Mineração de dores</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Relatórios automatizados</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Precificação por performance</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Auditoria de tráfego</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Contratos e LGPD</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Playbook de crise</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i>
+    </div>
+    <div class="flex shrink-0 items-center gap-10 pr-10" aria-hidden="true">
+      <span>IA aplicada ao ROI</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Mineração de dores</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Relatórios automatizados</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Precificação por performance</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Auditoria de tráfego</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Contratos e LGPD</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i><span>Playbook de crise</span><i data-lucide="sparkle" class="w-4 h-4 text-neon"></i>
+    </div>
+  </div>
+</section>
+
+<!-- BENTO -->
+<section id="conteudo" class="relative py-24 md:py-32">
+  <div class="glow w-[420px] h-[420px] bg-violet/20 top-40 -right-40"></div>
+  <div class="relative max-w-6xl mx-auto px-5">
+    <h2 class="rv font-extrabold text-4xl md:text-6xl tracking-tight max-w-3xl">Cinco módulos. Zero enrolação.</h2>
+    <p class="rv mt-4 text-lg text-white/70 max-w-xl">Modelos, tabelas e checklists para copiar, adaptar e usar com seus clientes.</p>
+    <div class="mt-12 grid md:grid-cols-6 gap-4 auto-rows-[minmax(220px,auto)]">
+      <article class="card rv md:col-span-4 p-8 flex flex-col justify-end min-h-[300px]">
+        <i data-lucide="brain-circuit" class="w-8 h-8 text-neon"></i>
+        <h3 class="mt-4 font-bold text-2xl">IA aplicada ao ROI</h3>
+        <p class="mt-2 text-white/70 max-w-lg">Prompts que transformam um CSV em diagnóstico: anomalias, priorização por impacto e plano de teste com critério de decisão.</p>
+      </article>
+      <article class="card rv md:col-span-2 p-7">
+        <i data-lucide="messages-square" class="w-8 h-8 text-neon"></i>
+        <h3 class="mt-4 font-bold text-xl">Mineração de dores</h3>
+        <p class="mt-2 text-white/70 text-sm leading-relaxed">Agrupe avaliações em objeções, desejos e vocabulário do nicho e vire anúncio.</p>
+      </article>
+      <article class="card rv md:col-span-2 p-7">
+        <i data-lucide="workflow" class="w-8 h-8 text-neon"></i>
+        <h3 class="mt-4 font-bold text-xl">Relatórios no automático</h3>
+        <p class="mt-2 text-white/70 text-sm leading-relaxed">Fluxo com Make ou Zapier, planilha e IA, com revisão humana antes de enviar.</p>
+      </article>
+      <article class="card rv md:col-span-2 p-7">
+        <i data-lucide="badge-dollar-sign" class="w-8 h-8 text-neon"></i>
+        <h3 class="mt-4 font-bold text-xl">Precificação por performance</h3>
+        <p class="mt-2 text-white/70 text-sm leading-relaxed">Fixo, variável ou bônus por ROAS, com teto, meta mínima e direito de auditoria.</p>
+      </article>
+      <article class="card rv md:col-span-2 p-7">
+        <i data-lucide="search-check" class="w-8 h-8 text-neon"></i>
+        <h3 class="mt-4 font-bold text-xl">Auditoria de entrada</h3>
+        <p class="mt-2 text-white/70 text-sm leading-relaxed">Devolutiva executiva: rastreamento, fuga de verba e fricção na jornada.</p>
+      </article>
+      <article class="card rv md:col-span-6 p-7 flex flex-col md:flex-row md:items-center gap-5">
+        <i data-lucide="shield-check" class="w-10 h-10 text-neon shrink-0"></i>
+        <div><h3 class="font-bold text-xl">Contratos, LGPD e playbook de crise</h3>
+        <p class="mt-1 text-white/70">Minuta simplificada, três cenários de crise com resposta em 48 horas e as respostas certas para as três objeções mais comuns dos clientes.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTRICAS -->
+<section class="py-20 border-y border-white/10 bg-white/[0.02]" aria-label="O método em números">
+  <div class="max-w-6xl mx-auto px-5 grid grid-cols-2 md:grid-cols-4 gap-10">
+    <div class="rv"><p class="font-display font-extrabold text-5xl md:text-6xl"><span class="count" data-to="5">5</span></p><p class="mt-2 text-white/70 text-sm">módulos práticos</p></div>
+    <div class="rv"><p class="font-display font-extrabold text-5xl md:text-6xl"><span class="count" data-to="72">72</span><span class="text-neon text-3xl"> h</span></p><p class="mt-2 text-white/70 text-sm">para validar uma hipótese</p></div>
+    <div class="rv"><p class="font-display font-extrabold text-5xl md:text-6xl"><span class="count" data-to="90">90</span><span class="text-neon text-3xl"> dias</span></p><p class="mt-2 text-white/70 text-sm">de plano de ação</p></div>
+    <div class="rv"><p class="font-display font-extrabold text-5xl md:text-6xl"><span class="count" data-to="48">48</span><span class="text-neon text-3xl"> h</span></p><p class="mt-2 text-white/70 text-sm">de resposta em crises</p></div>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section id="metodo" class="py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-5">
+    <h2 class="rv font-extrabold text-4xl md:text-6xl tracking-tight max-w-3xl">Seus primeiros 30 dias com o método</h2>
+    <div class="mt-12 grid md:grid-cols-4 gap-4">
+      <div class="card rv p-7"><p class="text-neon font-display font-bold">Semana 1</p><p class="mt-3 font-bold text-lg">Acessos e medição</p><p class="mt-2 text-sm text-white/70">Auditoria de rastreamento e metas acordadas.</p></div>
+      <div class="card rv p-7"><p class="text-neon font-display font-bold">Semana 2</p><p class="mt-3 font-bold text-lg">Eventos e estrutura</p><p class="mt-2 text-sm text-white/70">Correção de eventos e campanhas padronizadas.</p></div>
+      <div class="card rv p-7"><p class="text-neon font-display font-bold">Semana 3</p><p class="mt-3 font-bold text-lg">Testes e relatório</p><p class="mt-2 text-sm text-white/70">Primeiros testes de criativos e relatório automatizado no ar.</p></div>
+      <div class="card rv p-7"><p class="text-neon font-display font-bold">Semana 4</p><p class="mt-3 font-bold text-lg">Resultados e decisão</p><p class="mt-2 text-sm text-white/70">Reunião de resultados e escolha da próxima fase.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-24 md:py-32">
+  <div class="max-w-3xl mx-auto px-5">
+    <h2 class="rv font-extrabold text-4xl md:text-5xl tracking-tight">Perguntas frequentes</h2>
+    <div class="mt-10 divide-y divide-white/10 border-y border-white/10">
+      <div><button class="faq-btn w-full flex justify-between items-center gap-4 py-6 text-left font-bold text-lg" aria-expanded="false">Para quem é este método?<i data-lucide="plus" class="w-5 h-5 shrink-0 text-neon transition-transform"></i></button>
+        <div class="faq-panel"><div><p class="pb-6 text-white/70 leading-relaxed">Para gestores de tráfego, donos de agência e consultores que já operam campanhas e querem evoluir para serviços estratégicos.</p></div></div></div>
+      <div><button class="faq-btn w-full flex justify-between items-center gap-4 py-6 text-left font-bold text-lg" aria-expanded="false">Preciso saber programar ou usar IA?<i data-lucide="plus" class="w-5 h-5 shrink-0 text-neon transition-transform"></i></button>
+        <div class="faq-panel"><div><p class="pb-6 text-white/70 leading-relaxed">Não. Os prompts estão prontos para copiar, e as automações usam ferramentas visuais como Make e Zapier, com passo a passo e checklist.</p></div></div></div>
+      <div><button class="faq-btn w-full flex justify-between items-center gap-4 py-6 text-left font-bold text-lg" aria-expanded="false">O método garante aumento de faturamento?<i data-lucide="plus" class="w-5 h-5 shrink-0 text-neon transition-transform"></i></button>
+        <div class="faq-panel"><div><p class="pb-6 text-white/70 leading-relaxed">Não. Ele entrega método para decidir com base em dados e proteger sua margem. O resultado depende da sua execução e do mercado de cada cliente.</p></div></div></div>
+      <div><button class="faq-btn w-full flex justify-between items-center gap-4 py-6 text-left font-bold text-lg" aria-expanded="false">As minutas de contrato substituem um advogado?<i data-lucide="plus" class="w-5 h-5 shrink-0 text-neon transition-transform"></i></button>
+        <div class="faq-panel"><div><p class="pb-6 text-white/70 leading-relaxed">Não. São modelos educacionais. Antes do uso comercial, revise e adapte cada cláusula com um advogado especializado.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="pagamento" class="px-5 pb-24">
+  <div class="relative max-w-5xl mx-auto overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] px-6 py-16 md:py-24 text-center">
+    <div class="glow w-[420px] h-[420px] bg-neon/30 -top-48 left-1/2 -translate-x-1/2"></div>
+    <div class="relative rv">
+      <h2 class="font-extrabold text-4xl md:text-6xl tracking-tight max-w-3xl mx-auto">Sua próxima reunião pode começar pela margem, não pelo CTR.</h2>
+      <p class="mt-8 font-display font-extrabold text-6xl md:text-7xl">R$&nbsp;15<span class="text-3xl text-white/60">,00</span></p>
+      <p class="mt-2 text-white/60 text-sm">Pagamento único. Escolha a plataforma de sua preferência:</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <a data-magnetic href="https://pay.kiwify.com.br/voUYIPR" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-3 rounded-full bg-white text-[#0A0B10] font-bold px-8 py-4 hover:scale-105 active:scale-95 transition"><span>Pagar com</span><img src="https://assets.kiwify.com.br/extra/footer-kiwify-gray.png" alt="Kiwify" class="h-7 w-auto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span style="display:none" class="font-extrabold">Kiwify</span></a>
+        <a data-magnetic href="https://pay.cakto.com.br/623npzb_1284050" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-3 rounded-full bg-white text-[#0A0B10] font-bold px-8 py-4 hover:scale-105 active:scale-95 transition"><span>Pagar com</span><img src="https://www.cakto.com.br/assets/cakto-logo.svg" alt="Cakto" class="h-6 w-auto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span style="display:none" class="font-extrabold">Cakto</span></a>
+      </div>
+      <p class="mt-10 text-white/70 text-sm">Dúvidas antes de comprar? Chame no perfil:</p>
+      <div class="mt-3 flex justify-center gap-3">
+        <a href="https://www.tiktok.com/@0_kiwify_2" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-white/20 hover:bg-white/10 transition px-5 py-2.5 text-sm font-bold"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>TikTok</a>
+        <a href="https://www.instagram.com/0kiw.ify0?dmpr=MTIyMWNyZGw1MTkzMg==" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-white/20 hover:bg-white/10 transition px-5 py-2.5 text-sm font-bold"><i data-lucide="instagram" class="w-5 h-5"></i>Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="border-t border-white/10">
+  <div class="max-w-6xl mx-auto px-5 py-14 grid md:grid-cols-3 gap-10 text-sm text-white/70">
+    <div><p class="font-display font-extrabold text-xl text-white flex items-center gap-2"><i data-lucide="zap" class="w-5 h-5 text-neon"></i>Método Marketing Digital</p><p class="mt-3 max-w-xs leading-relaxed">Métodos práticos para gestores de tráfego decidirem com evidências.</p></div>
+    <div><p class="font-bold text-white">Links rápidos</p><ul class="mt-3 space-y-2"><li><a class="hover:text-white" href="#conteudo">Conteúdo</a></li><li><a class="hover:text-white" href="#metodo">Método</a></li><li><a class="hover:text-white" href="#faq">Perguntas frequentes</a></li><li><a class="hover:text-white" href="#pagamento">Comprar</a></li></ul></div>
+    <div><p class="font-bold text-white">Fale com a gente</p>
+      <div class="mt-4 flex flex-col gap-3 items-start">
+        <a href="https://www.tiktok.com/@0_kiwify_2" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-white"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>TikTok · @0_kiwify_2</a>
+        <a href="https://www.instagram.com/0kiw.ify0?dmpr=MTIyMWNyZGw1MTkzMg==" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i>Instagram · @0kiw.ify0</a>
+      </div></div>
+  </div>
+  <p class="border-t border-white/10 py-6 px-5 text-center text-xs text-white/50">© <span id="year"></span> Método Marketing Digital. Material educacional: não constitui aconselhamento jurídico nem garantia de resultados.</p>
+</footer>
+
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.lucide) lucide.createIcons();
+
+    const nav = document.getElementById('nav'), burger = document.getElementById('burger'), mobile = document.getElementById('mobile');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+    burger.addEventListener('click', () => {
+      const open = mobile.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open);
+      if (open && window.gsap) gsap.from('.m-link', { y: 14, opacity: 0, stagger: .07, duration: .4, delay: .1, clearProps: 'all' });
+    });
+    mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobile.classList.remove('open'); burger.setAttribute('aria-expanded', false); }));
+
+    // FAQ
+    document.querySelectorAll('.faq-btn').forEach(btn => btn.addEventListener('click', () => {
+      const panel = btn.nextElementSibling, icon = btn.querySelector('svg'), will = !panel.classList.contains('open');
+      document.querySelectorAll('.faq-panel.open').forEach(p => { p.classList.remove('open'); const b = p.previousElementSibling; b.setAttribute('aria-expanded', false); b.querySelector('svg').style.transform = ''; });
+      if (will) { panel.classList.add('open'); btn.setAttribute('aria-expanded', true); icon.style.transform = 'rotate(45deg)'; }
+    }));
+
+    // Spotlight nos cards
+    document.querySelectorAll('.card').forEach(c => c.addEventListener('mousemove', e => {
+      const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }));
+
+    // Sem GSAP ou com movimento reduzido: tudo continua visível
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!window.gsap || !window.ScrollTrigger || reduce) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero em cascata
+    gsap.from('.h-in', { y: 36, opacity: 0, duration: .9, ease: 'power3.out', stagger: .12, clearProps: 'all' });
+    gsap.to('.float', { y: -10, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: .6 });
+
+    // Reveal ao rolar
+    gsap.utils.toArray('.rv').forEach((el, i) => gsap.from(el, {
+      y: 40, opacity: 0, duration: .8, ease: 'power3.out', delay: (i % 3) * .06, clearProps: 'all',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+    }));
+
+    // Contadores
+    document.querySelectorAll('.count').forEach(el => {
+      const end = +el.dataset.to, o = { v: 0 }; el.textContent = '0';
+      ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true,
+        onEnter: () => gsap.to(o, { v: end, duration: 1.8, ease: 'power2.out', onUpdate: () => el.textContent = Math.round(o.v) }) });
+    });
+
+    // Botões magnéticos
+    document.querySelectorAll('[data-magnetic]').forEach(b => {
+      b.addEventListener('mousemove', e => { const r = b.getBoundingClientRect(); gsap.to(b, { x: (e.clientX - r.left - r.width / 2) * .25, y: (e.clientY - r.top - r.height / 2) * .35, duration: .3 }); });
+      b.addEventListener('mouseleave', () => gsap.to(b, { x: 0, y: 0, duration: .5, ease: 'elastic.out(1,.5)' }));
+    });
+  });
+</script>
+</body>
+</html>
